@@ -1,2 +1,3 @@
 # targeter-vpn
-сборник VPN серверов от TargetAis
+Сборник VPN серверов от TargetAis
+сервера не мои!
