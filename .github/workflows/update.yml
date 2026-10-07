@@ -1,0 +1,32 @@
+name: Update VPN Subscriptions
+
+on:
+  schedule:
+    - cron: '0 */6 * * *'
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Чеккаут репозитория
+        uses: actions/checkout@v4
+
+      - name: Настройка Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.x'
+
+      - name: Установка зависимостей
+        run: pip install requests
+
+      - name: Запуск скрипта
+        run: python update-vpn.py
+
+      - name: Коммит и пуш обновленных файлов
+        run: |
+          git config --local user.email "action@github.com"
+          git config --local user.name "GitHub Action"
+          git add working_configs.txt sub_base64.txt
+          git diff-index --quiet HEAD || git commit -m "Auto-update VPN list"
+          git push
