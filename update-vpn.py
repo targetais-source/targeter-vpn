@@ -3,17 +3,19 @@ import json
 import requests
 
 sources = [
-    "https://sub.vlessfo.ru/vlessforu/working_configs.txt",
-    "https://hub.mos.ru/akelladejavu/bunker/-/raw/main/WHITE_LIST.txt"
+    "https://vlessfo.ru",
+    "https://mos.ru"
 ]
 
+VPN_NAME = "TargeterVPN"
+VPN_DESC = "впн от айса"
 country_cache = {}
 
 def get_flag_and_code(address):
     if not address or address in country_cache:
         return country_cache.get(address, "🌐 [UN]")
     try:
-        res = requests.get(f"http://ip-api.com/json/{address}?fields=status,countryCode", timeout=3).json()
+        res = requests.get(f"http://ip-api.com{address}?fields=status,countryCode", timeout=3).json()
         if res.get("status") == "success":
             code = res.get("countryCode", "")
             if len(code) == 2:
@@ -59,15 +61,12 @@ for url in sources:
         for line in lines:
             line = line.strip()
             if line.startswith(('vless://', 'vmess://', 'trojan://', 'ss://')):
-                if '#' in line:
-                    base_config = line.split('#')[0]
-                else:
-                    base_config = line
+                base_config, sep, old_name = line.partition('#')
                 
                 addr = extract_address(base_config)
                 flag_str = get_flag_and_code(addr)
                 
-                custom_name = f"{flag_str} TargeterVPN_{counter}"
+                custom_name = f"{flag_str} {VPN_NAME}_{counter}"
                 new_config = f"{base_config}#{custom_name}"
                 new_configs.append(new_config)
                 counter += 1
@@ -76,7 +75,8 @@ for url in sources:
         print(f"Ошибка при обработке источника {url}: {e}")
 
 if new_configs:
-    plain_text_data = '\n'.join(new_configs)
+    profile_header = f"#profile-title: {VPN_NAME}\n#profile-update-interval: 1\n#announce: {VPN_DESC}\n"
+    plain_text_data = profile_header + '\n'.join(new_configs)
     
     with open("working_configs.txt", "w", encoding="utf-8") as f:
         f.write(plain_text_data)
@@ -85,6 +85,6 @@ if new_configs:
     with open("sub_base64.txt", "w", encoding="utf-8") as f:
         f.write(base64_data)
         
-    print(f"Успешно сохранено {len(new_configs)} серверов с флагами.")
+    print(f"Успешно сохранено {len(new_configs)} серверов.")
 else:
     print("Ошибка: не удалось собрать сервера.")
