@@ -9,21 +9,21 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      - name: Чеккаут репозитория
+      - name: Checkout repo
         uses: actions/checkout@v4
 
-      - name: Настройка Python
+      - name: Setup Python
         uses: actions/setup-python@v5
         with:
           python-version: '3.x'
 
-      - name: Установка зависимостей
+      - name: Install dependencies
         run: pip install requests
 
-      - name: Запуск скрипта
+      - name: Run script
         run: python update-vpn.py
 
-      - name: Коммит и пуш обновленных файлов
+      - name: Commit and push
         run: |
           git config --local user.email "action@github.com"
           git config --local user.name "GitHub Action"
