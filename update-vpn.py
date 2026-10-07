@@ -1,3 +1,4 @@
+import base64
 import requests
 
 sources = [
@@ -16,8 +17,6 @@ for url in sources:
         
         for line in lines:
             line = line.strip()
-            
-            # Добавлено пропущенное двоеточие в конце строки
             if line.startswith(('vless://', 'vmess://', 'trojan://', 'ss://')):
                 if '#' in line:
                     base_config = line.split('#')[0]
@@ -33,9 +32,16 @@ for url in sources:
         print(f"Ошибка при обработке источника {url}: {e}")
 
 if new_configs:
+    plain_text_data = '\n'.join(new_configs)
+    
     with open("working_configs.txt", "w", encoding="utf-8") as f:
-        f.write('\n'.join(new_configs))
-    print(f"Успешно объединено и сохранено {len(new_configs)} серверов в стиле TargeterVPN.")
+        f.write(plain_text_data)
+        
+    base64_data = base64.b64encode(plain_text_data.encode('utf-8')).decode('utf-8')
+    with open("sub_base64.txt", "w", encoding="utf-8") as f:
+        f.write(base64_data)
+        
+    print(f"Успешно сохранено {len(new_configs)} серверов.")
 else:
-    print("Критическая ошибка: не удалось собрать сервера ни из одного источника.")
+    print("Ошибка: не удалось собрать сервера.")
 
