@@ -1,10 +1,14 @@
 import base64
+import re
 import requests
 
 sources = [
     "https://sub.vlessfo.ru/vlessforu/working_configs.txt",
     "https://hub.mos.ru/akelladejavu/bunker/-/raw/main/WHITE_LIST.txt"
 ]
+
+# Регулярное выражение для поиска эмодзи флагов (региональные индикаторы стран)
+FLAG_RE = re.compile(r'[\U0001F1E6-\U0001F1FF]{2}')
 
 new_configs = []
 counter = 1
@@ -18,12 +22,25 @@ for url in sources:
         for line in lines:
             line = line.strip()
             if line.startswith(('vless://', 'vmess://', 'trojan://', 'ss://')):
+                flag = ""
                 if '#' in line:
-                    base_config = line.split('#')[0]
+                    parts = line.split('#')
+                    base_config = parts[0]
+                    old_name = parts[1]
+                    
+                    # Ищем флаг в старом названии сервера
+                    found_flags = FLAG_RE.findall(old_name)
+                    if found_flags:
+                        flag = found_flags[0]  # Берем первый найденный флаг
                 else:
                     base_config = line
               
-                custom_name = f"TargeterVPN_{counter}"
+                # Формируем имя: добавляем флаг через пробел
+                if flag:
+                    custom_name = f"TargeterVPN_{counter} {flag}"
+                else:
+                    custom_name = f"TargeterVPN_{counter}"
+                    
                 new_config = f"{base_config}#{custom_name}"
                 new_configs.append(new_config)
                 counter += 1
@@ -41,7 +58,6 @@ if new_configs:
     with open("sub_base64.txt", "w", encoding="utf-8") as f:
         f.write(base64_data)
         
-    print(f"Успешно сохранено {len(new_configs)} серверов.")
+    print(f"Успешно сохранено {len(new_configs)} серверов с флагами.")
 else:
     print("Ошибка: не удалось собрать сервера.")
-
