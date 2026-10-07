@@ -3,11 +3,11 @@ import re
 import requests
 
 sources = [
-    "https://sub.vlessfo.ru/vlessforu/working_configs.txt",
-    "https://hub.mos.ru/akelladejavu/bunker/-/raw/main/WHITE_LIST.txt"
+    "https://vlessfo.ru",
+    "https://mos.ru"
 ]
 
-# Регулярное выражение для поиска эмодзи флагов (региональные индикаторы стран)
+# Регулярное выражение для поиска эмодзи флагов стран
 FLAG_RE = re.compile(r'[\U0001F1E6-\U0001F1FF]{2}')
 
 new_configs = []
@@ -25,8 +25,8 @@ for url in sources:
                 flag = ""
                 if '#' in line:
                     parts = line.split('#')
-                    base_config = parts[0]
-                    old_name = parts[1]
+                    base_config = parts[0]  # Берем саму ссылку на прокси
+                    old_name = parts[1]     # Берем старое имя сервера
                     
                     # Ищем флаг в старом названии сервера
                     found_flags = FLAG_RE.findall(old_name)
@@ -35,7 +35,7 @@ for url in sources:
                 else:
                     base_config = line
               
-                # Формируем имя: добавляем флаг через пробел
+                # Формируем имя: добавляем флаг через пробел, если он нашелся
                 if flag:
                     custom_name = f"TargeterVPN_{counter} {flag}"
                 else:
@@ -58,6 +58,6 @@ if new_configs:
     with open("sub_base64.txt", "w", encoding="utf-8") as f:
         f.write(base64_data)
         
-    print(f"Успешно сохранено {len(new_configs)} серверов с флагами.")
+    print(f"Успешно сохранено {len(new_configs)} серверов.")
 else:
     print("Ошибка: не удалось собрать сервера.")
