@@ -1,14 +1,43 @@
 import base64
-import re
 import requests
 
 sources = [
-    "https://vlessfo.ru",
-    "https://mos.ru"
+    "https://sub.vlessfo.ru/vlessforu/working_configs.txt",
+    "https://hub.mos.ru/akelladejavu/bunker/-/raw/main/WHITE_LIST.txt"
 ]
 
-# Регулярное выражение для поиска эмодзи флагов стран
-FLAG_RE = re.compile(r'[\U0001F1E6-\U0001F1FF]{2}')
+country_cache = {}
+
+def get_flag_and_code(address):
+    if address in country_cache:
+        return country_cache[address]
+    try:
+        res = requests.get(f"http://ip-api.com/json/{address}?fields=status,countryCode", timeout=3).json()
+        if res.get("status") == "success":
+            code = res.get("countryCode", "")
+            if len(code) == 2:
+                flag = chr(0x1F1E6 + ord(code[0]) - 65) + chr(0x1F1E6 + ord(code[1]) - 65)
+                res_str = f"{flag} [{code}]"
+                country_cache[address] = res_str
+                return res_str
+    except Exception:
+        pass
+    country_cache[address] = "🌐 [UN]"
+    return "🌐 [UN]"
+
+def extract_address(config):
+    try:
+        clean = config.split("://")[1]
+        if "@" in clean:
+            clean = clean.split("@")[1]
+        host_part = clean.split("/")[0].split("?")[0].split("#")[0]
+        if ":" in host_part:
+            if host_part.startswith("["):
+                return host_part.split("]")[0].replace("[", "")
+            return host_part.split(":")[0]
+        return host_part
+    except Exception:
+        return ""
 
 new_configs = []
 counter = 1
@@ -22,25 +51,15 @@ for url in sources:
         for line in lines:
             line = line.strip()
             if line.startswith(('vless://', 'vmess://', 'trojan://', 'ss://')):
-                flag = ""
                 if '#' in line:
-                    parts = line.split('#')
-                    base_config = parts[0]  # Берем саму ссылку на прокси
-                    old_name = parts[1]     # Берем старое имя сервера
-                    
-                    # Ищем флаг в старом названии сервера
-                    found_flags = FLAG_RE.findall(old_name)
-                    if found_flags:
-                        flag = found_flags[0]  # Берем первый найденный флаг
+                    base_config = line.split('#')[0]
                 else:
                     base_config = line
-              
-                # Формируем имя: добавляем флаг через пробел, если он нашелся
-                if flag:
-                    custom_name = f"TargeterVPN_{counter} {flag}"
-                else:
-                    custom_name = f"TargeterVPN_{counter}"
-                    
+                
+                addr = extract_address(base_config)
+                flag_str = get_flag_and_code(addr) if addr else "🌐 [UN]"
+                
+                custom_name = f"{flag_str} TargeterVPN_{counter}"
                 new_config = f"{base_config}#{custom_name}"
                 new_configs.append(new_config)
                 counter += 1
@@ -58,6 +77,6 @@ if new_configs:
     with open("sub_base64.txt", "w", encoding="utf-8") as f:
         f.write(base64_data)
         
-    print(f"Успешно сохранено {len(new_configs)} серверов.")
+    print(f"Успешно сохранено {len(new_configs)} серверов с флагами.")
 else:
     print("Ошибка: не удалось собрать сервера.")
