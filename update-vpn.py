@@ -1,4 +1,5 @@
 import base64
+import json
 import requests
 
 sources = [
@@ -9,8 +10,8 @@ sources = [
 country_cache = {}
 
 def get_flag_and_code(address):
-    if address in country_cache:
-        return country_cache[address]
+    if not address or address in country_cache:
+        return country_cache.get(address, "🌐 [UN]")
     try:
         res = requests.get(f"http://ip-api.com/json/{address}?fields=status,countryCode", timeout=3).json()
         if res.get("status") == "success":
@@ -27,6 +28,13 @@ def get_flag_and_code(address):
 
 def extract_address(config):
     try:
+        if config.startswith("vmess://"):
+            b64_str = config.split("vmess://")[1]
+            b64_str += "=" * (-len(b64_str) % 4)
+            decoded = base64.b64decode(b64_str).decode('utf-8', errors='ignore')
+            data = json.loads(decoded)
+            return data.get("add", "")
+        
         clean = config.split("://")[1]
         if "@" in clean:
             clean = clean.split("@")[1]
@@ -57,7 +65,7 @@ for url in sources:
                     base_config = line
                 
                 addr = extract_address(base_config)
-                flag_str = get_flag_and_code(addr) if addr else "🌐 [UN]"
+                flag_str = get_flag_and_code(addr)
                 
                 custom_name = f"{flag_str} TargeterVPN_{counter}"
                 new_config = f"{base_config}#{custom_name}"
