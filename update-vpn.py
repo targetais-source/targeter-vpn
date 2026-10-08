@@ -102,7 +102,9 @@ if reader:
     reader.close()
 
 if new_configs:
-    plain_text_data = '\n'.join(new_configs)
+    header = "//profile-title: base64:VGFyZ2V0ZXJWUE4=\n//profile-update-interval: 6\n//subscription-userinfo: upload=0; download=0; total=1073741824000; expire=0\n#profile-title: TargeterVPN\n#profile-description: впн от айса\n"
+    
+    plain_text_data = header + '\n'.join(new_configs)
     
     with open("working_configs.txt", "w", encoding="utf-8") as f:
         f.write(plain_text_data)
