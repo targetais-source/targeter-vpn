@@ -5,6 +5,7 @@ import requests
 import geoip2.database
 
 sources = [
+    "https://raw.githubusercontent.com/igareck/vpn-configs-for-russia/refs/heads/main/BLACK_VLESS_RUS.txt"
     "https://sub.vlessfo.ru/vlessforu/working_configs.txt",
     "https://hub.mos.ru/akelladejavu/bunker/-/raw/main/WHITE_LIST.txt"
     "https://gitverse.ru/api/repos/Akres/VPN/raw/branch/master/all"
