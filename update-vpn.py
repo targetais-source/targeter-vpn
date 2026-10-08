@@ -105,13 +105,21 @@ if new_configs:
     sub_title = "TargeterVPN"
     sub_desc = "впн от айса"
     
-    plain_text_data = f"#PROFILE-TITLE: {sub_title}\n#announce: {sub_desc}\n" + '\n'.join(new_configs)
+    # 1. Заголовки для обычного текстового файла working_configs.txt
+    plain_header = f"#PROFILE-TITLE: {sub_title}\n#PROFILE-DESCRIPTION: {sub_desc}\n"
+    plain_text_data = plain_header + '\n'.join(new_configs)
     
     with open("working_configs.txt", "w", encoding="utf-8") as f:
         f.write(plain_text_data)
         
-    raw_b64 = base64.b64encode('\n'.join(new_configs).encode('utf-8')).decode('utf-8')
-    base64_data = f"#profile-title: base64:{base64.b64encode(sub_title.encode('utf-8')).decode('utf-8')}\n" + raw_b64
+    # 2. Заголовки, упаковываемые ИНСАЙД Base64 для sub_base64.txt
+    title_b64 = base64.b64encode(sub_title.encode('utf-8')).decode('utf-8')
+    desc_b64 = base64.b64encode(sub_desc.encode('utf-8')).decode('utf-8')
+    
+    b64_internal_header = f"#profile-title: base64:{title_b64}\n#profile-web-page-url: base64:{desc_b64}\n"
+    full_content_to_encode = b64_internal_header + '\n'.join(new_configs)
+    
+    base64_data = base64.b64encode(full_content_to_encode.encode('utf-8')).decode('utf-8')
     
     with open("sub_base64.txt", "w", encoding="utf-8") as f:
         f.write(base64_data)
