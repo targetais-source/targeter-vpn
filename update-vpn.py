@@ -1,53 +1,10 @@
 import base64
-import json
 import requests
 
 sources = [
     "https://sub.vlessfo.ru/vlessforu/working_configs.txt",
     "https://hub.mos.ru/akelladejavu/bunker/-/raw/main/WHITE_LIST.txt"
 ]
-
-country_cache = {}
-
-def get_flag_and_code(address):
-    if not address:
-        return "🌐 [UN]"
-    if address in country_cache:
-        return country_cache[address]
-    try:
-        res = requests.get(f"http://ip-api.com/json/{address}?fields=status,countryCode", timeout=2).json()
-        if res.get("status") == "success":
-            code = res.get("countryCode", "")
-            if len(code) == 2:
-                flag = chr(0x1F1E6 + ord(code[0]) - 65) + chr(0x1F1E6 + ord(code[1]) - 65)
-                res_str = f"{flag} [{code}]"
-                country_cache[address] = res_str
-                return res_str
-    except Exception:
-        pass
-    country_cache[address] = "🌐 [UN]"
-    return "🌐 [UN]"
-
-def extract_address(config):
-    try:
-        if config.startswith("vmess://"):
-            b64_str = config.split("vmess://")[1]
-            b64_str += "=" * (-len(b64_str) % 4)
-            decoded = base64.b64decode(b64_str.encode('utf-8')).decode('utf-8', errors='ignore')
-            data = json.loads(decoded)
-            return str(data.get("add", ""))
-        
-        clean = config.split("://")[1]
-        if "@" in clean:
-            clean = clean.split("@")[1]
-        host_part = clean.split("/")[0].split("?")[0].split("#")[0]
-        if ":" in host_part:
-            if host_part.startswith("["):
-                return host_part.split("]")[0].replace("[", "")
-            return host_part.split(":")[0]
-        return host_part
-    except Exception:
-        return ""
 
 new_configs = []
 counter = 1
@@ -59,23 +16,17 @@ for url in sources:
         lines = response.text.splitlines()
         
         for line in lines:
-            try:
-                line = line.strip()
-                if line.startswith(('vless://', 'vmess://', 'trojan://', 'ss://')):
-                    if '#' in line:
-                        base_config = line.split('#')[0]
-                    else:
-                        base_config = line
-                    
-                    addr = extract_address(base_config)
-                    flag_str = get_flag_and_code(addr)
-                    
-                    custom_name = f"{flag_str} TargeterVPN_{counter}"
-                    new_config = f"{base_config}#{custom_name}"
-                    new_configs.append(new_config)
-                    counter += 1
-            except Exception:
-                continue
+            line = line.strip()
+            if line.startswith(('vless://', 'vmess://', 'trojan://', 'ss://')):
+                if '#' in line:
+                    base_config = line.split('#')[0]
+                else:
+                    base_config = line
+              
+                custom_name = f"TargeterVPN_{counter}"
+                new_config = f"{base_config}#{custom_name}"
+                new_configs.append(new_config)
+                counter += 1
                 
     except Exception as e:
         print(f"Ошибка при обработке источника {url}: {e}")
@@ -90,6 +41,6 @@ if new_configs:
     with open("sub_base64.txt", "w", encoding="utf-8") as f:
         f.write(base64_data)
         
-    print(f"Успешно сохранено {len(new_configs)} серверов с флагами.")
+    print(f"Успешно сохранено {len(new_configs)} серверов.")
 else:
     print("Ошибка: не удалось собрать сервера.")
