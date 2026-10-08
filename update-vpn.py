@@ -1,6 +1,8 @@
 import base64
 import json
+import socket
 import requests
+import geoip2.database
 
 sources = [
     "https://sub.vlessfo.ru/vlessforu/working_configs.txt",
@@ -8,25 +10,49 @@ sources = [
 ]
 
 country_cache = {}
+ip_cache = {}
+
+try:
+    reader = geoip2.database.Reader('Country.mmdb')
+except Exception:
+    reader = None
+
+def resolve_host_to_ip(host):
+    if not host:
+        return ""
+    if host in ip_cache:
+        return ip_cache[host]
+    try:
+        ip = socket.gethostbyname(host)
+        ip_cache[host] = ip
+        return ip
+    except Exception:
+        ip_cache[host] = host
+        return host
 
 def get_flag(address):
-    if not address or address in country_cache:
-        return country_cache.get(address, "🌐 [UN]")
+    if not address:
+        return "🌐 [UN]"
     
-    try:
-        headers = {'User-Agent': 'Mozilla/5.0'}
-        res = requests.get(f"https://ipapi.co/{address}/json/", headers=headers, timeout=1.5)
-        if res.status_code == 200:
-            data = res.json()
-            code = data.get("country_code", "")
-            if len(code) == 2:
+    ip = resolve_host_to_ip(address)
+    
+    if ip in country_cache:
+        return country_cache[ip]
+    
+    if reader:
+        try:
+            response = reader.country(ip)
+            code = response.country.iso_code
+            if code and len(code) == 2:
                 flag = chr(0x1F1E6 + ord(code[0]) - 65) + chr(0x1F1E6 + ord(code[1]) - 65)
                 res_str = f"{flag} [{code}]"
+                country_cache[ip] = res_str
                 country_cache[address] = res_str
                 return res_str
-    except Exception:
-        pass
-    
+        except Exception:
+            pass
+
+    country_cache[ip] = "🌐 [UN]"
     country_cache[address] = "🌐 [UN]"
     return "🌐 [UN]"
 
@@ -71,6 +97,9 @@ for url in sources:
                 
     except Exception as e:
         print(f"Ошибка при обработке источника {url}: {e}")
+
+if reader:
+    reader.close()
 
 if new_configs:
     plain_text_data = '\n'.join(new_configs)
