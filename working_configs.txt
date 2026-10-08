@@ -1,5 +1,6 @@
 #PROFILE-TITLE: TargeterVPN
-#PROFILE-DESCRIPTION: впн от айса
+#announcement: впн от айса
+vless://00000000-0000-0000-0000-000000000000@127.0.0.1:8080?type=tcp#ℹ️ впн от айса
 vless://40781fd4-c7df-4aeb-bd5a-ecfa3ba7b841@201.10.90.65:443?type=tcp&security=reality&flow=xtls-rprx-vision&fp=firefox&pbk=xcTXD3of3Yt5hHdIwYGZ1LjMBgiL6sqj5J33J4U4ozM&sid=a7c31f92&sni=onyx058.filebeam.website#🇵🇱 [PL] TargeterVPN_1
 vless://24916ad0-847d-4522-9e17-f4347dee57fd@43.174.195.1:443?encryption=none&fp=firefox&host=kv.074167.xyz&security=tls&sni=kv.074167.xyz&type=ws#🇸🇬 [SG] TargeterVPN_2
 vless://ee0a38e3-d148-48ac-ba99-5133446c2377@95.85.253.241:2053?type=tcp&security=tls&fp=firefox&sni=95.85.253.241#🇵🇱 [PL] TargeterVPN_3
