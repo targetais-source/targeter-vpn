@@ -105,7 +105,7 @@ if new_configs:
     sub_title = "TargeterVPN"
     sub_desc = "впн от айса"
     
-    plain_text_data = f"#PROFILE-TITLE: {sub_title}\n" + '\n'.join(new_configs)
+    plain_text_data = f"#PROFILE-TITLE: {sub_title}\n#announce: {sub_desc}\n" + '\n'.join(new_configs)
     
     with open("working_configs.txt", "w", encoding="utf-8") as f:
         f.write(plain_text_data)
