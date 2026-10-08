@@ -7,6 +7,7 @@ import geoip2.database
 sources = [
     "https://sub.vlessfo.ru/vlessforu/working_configs.txt",
     "https://hub.mos.ru/akelladejavu/bunker/-/raw/main/WHITE_LIST.txt"
+    "https://gitverse.ru/api/repos/Akres/VPN/raw/branch/master/all"
     "https://hub.mos.ru/rkp/sub-roskompozor/raw/main/bl"
 ]
 
