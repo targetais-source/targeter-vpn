@@ -1,5 +1,5 @@
 #PROFILE-TITLE: TargeterVPN
-#announce: впн от айса
+#PROFILE-DESCRIPTION: впн от айса
 vless://40781fd4-c7df-4aeb-bd5a-ecfa3ba7b841@201.10.90.65:443?type=tcp&security=reality&flow=xtls-rprx-vision&fp=firefox&pbk=xcTXD3of3Yt5hHdIwYGZ1LjMBgiL6sqj5J33J4U4ozM&sid=a7c31f92&sni=onyx058.filebeam.website#🇵🇱 [PL] TargeterVPN_1
 vless://24916ad0-847d-4522-9e17-f4347dee57fd@43.174.195.1:443?encryption=none&fp=firefox&host=kv.074167.xyz&security=tls&sni=kv.074167.xyz&type=ws#🇸🇬 [SG] TargeterVPN_2
 vless://ee0a38e3-d148-48ac-ba99-5133446c2377@95.85.253.241:2053?type=tcp&security=tls&fp=firefox&sni=95.85.253.241#🇵🇱 [PL] TargeterVPN_3
@@ -125,7 +125,7 @@ vless://9ff17e23-c6ed-4472-90e3-c85c74e88478@1akdeta.serveroff.net:443?security=
 vless://44f06ad1-982c-4e03-849f-899c1c8dc14f@vl.cocopon.top:443?encryption=none&security=tls&type=ws&host=vl.cocopon.top&path=%2F&sni=vl.cocopon.top#🌐 [UN] TargeterVPN_123
 vless://068c73f5-c2fc-4579-96be-6e37cfcf58ed@176.108.253.120:8443?type=xhttp&security=reality&sni=cdn-de.cahmes.space&pbk=LP7yXSC50lHfxW-BuRQ3OLDBNncF2KVnMgVJuX9XR2w&sid=35cd2022241da999&fp=firefox&path=%2Fxhttp&host=176.108.253.120&mode=auto#🇷🇺 [RU] TargeterVPN_124
 vless://1b487f79-6b87-4971-863c-526bd31abd44@94.183.253.211:443?encryption=none&flow=xtls-rprx-vision&fp=firefox&pbk=uLuPk7Ee7W9BcvjgM2FJHYG2NJxEeEkP7QVL8jYudhI&security=reality&sid=aa9bfaebd76d8b95&sni=germ2.serverslocal.ru&type=tcp#🇩🇪 [DE] TargeterVPN_125
-vless://267b3a79-81f2-42ac-a409-c23b05b6329d@nl7.bbobr.win:443?type=grpc&security=reality&fp=firefox&pbk=aRhhdxVu0EiUbVl1Wyq6DLjJMRRJ78YQY2rN5Ne98gg&sid=5d3849c8fc1e63b0&sni=nl7.bbobr.win&serviceName=api.v2.nl7c05e8a3#🇳🇱 [NL] TargeterVPN_126
+vless://267b3a79-81f2-42ac-a409-c23b05b6329d@nl7.bbobr.win:443?type=grpc&security=reality&fp=firefox&pbk=aRhhdxVu0EiUbVl1Wyq6DLjJMRRJ78YQY2rN5Ne98gg&sid=5d3849c8fc1e63b0&sni=nl7.bbobr.win&serviceName=api.v2.nl7c05e8a3#🇷🇸 [RS] TargeterVPN_126
 vless://2b781b4a-5942-48e0-a7f3-5a07b7b488c1@45.148.103.85:443?encryption=none&type=tcp&security=reality&flow=xtls-rprx-vision&sni=ca-root.sworkingvpn.com&pbk=AhLy7ha7FF2EQfu-3SxOFKUwExyHActYPHtyv82KNCI&sid=15bcc0a77c3cacdf&fp=firefox#🇨🇦 [CA] TargeterVPN_127
 vless://267b3a79-81f2-42ac-a409-c23b05b6329d@94.141.162.88:443?type=tcp&security=reality&flow=xtls-rprx-vision&fp=firefox&pbk=K9e4gQJX1KLEmvsKOp9CtJ-o-L4EIpYOPTg5Spo9MWs&sid=65ceab72c331f307&sni=srv88.bbobr.win#🇷🇺 [RU] TargeterVPN_128
 vless://d2519b5e-495e-462e-9703-bbf68011d2f3@50.7.210.68:443?type=raw&security=reality&flow=xtls-rprx-vision&fp=firefox&pbk=8ENbaQRCWZk-wewSrdHq1_rVjJY4CrxqXUo_5vZNdi4&sid=b2b44805&sni=xn--80aer5aza.xn----9sbekcigdcaa6cd7cafr7e.xn--p1ai#🇬🇧 [GB] TargeterVPN_129
