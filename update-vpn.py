@@ -102,14 +102,16 @@ if reader:
     reader.close()
 
 if new_configs:
-    header = "//profile-title: base64:VGFyZ2V0ZXJWUE4=\n//profile-update-interval: 6\n//subscription-userinfo: upload=0; download=0; total=1073741824000; expire=0\n#profile-title: TargeterVPN\n#profile-description: впн от айса\n"
+    sub_title = "TargeterVPN (впн от айса)"
     
-    plain_text_data = header + '\n'.join(new_configs)
+    plain_text_data = f"#PROFILE-TITLE: {sub_title}\n" + '\n'.join(new_configs)
     
     with open("working_configs.txt", "w", encoding="utf-8") as f:
         f.write(plain_text_data)
         
-    base64_data = base64.b64encode(plain_text_data.encode('utf-8')).decode('utf-8')
+    raw_b64 = base64.b64encode('\n'.join(new_configs).encode('utf-8')).decode('utf-8')
+    base64_data = f"#profile-title: base64:{base64.b64encode(sub_title.encode('utf-8')).decode('utf-8')}\n" + raw_b64
+    
     with open("sub_base64.txt", "w", encoding="utf-8") as f:
         f.write(base64_data)
         
