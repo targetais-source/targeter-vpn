@@ -102,7 +102,8 @@ if reader:
     reader.close()
 
 if new_configs:
-    sub_title = "TargeterVPN (впн от айса)"
+    sub_title = "TargeterVPN"
+    sub_desc = "впн от айса"
     
     plain_text_data = f"#PROFILE-TITLE: {sub_title}\n" + '\n'.join(new_configs)
     
