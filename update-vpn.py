@@ -6,9 +6,7 @@ import geoip2.database
 
 sources = [
     "https://sub.vlessfo.ru/vlessforu/working_configs.txt",
-    "https://hub.mos.ru/akelladejavu/bunker/-/raw/main/WHITE_LIST.txt",
-    "https://gitverse.ru/api/repos/Akres/VPN/raw/branch/master/all",
-    "https://hub.mos.ru/rkp/sub-roskompozor/raw/main/bl",
+    "https://hub.mos.ru/akelladejavu/bunker/-/raw/main/WHITE_LIST.txt"
 ]
 
 country_cache = {}
@@ -73,6 +71,7 @@ def extract_ip(config):
         return ""
 
 new_configs = []
+seen_configs = set()
 counter = 1
 
 info_node = "vless://00000000-0000-0000-0000-000000000000@127.0.0.1:8080?type=tcp#ℹ️ впн от айса"
@@ -88,6 +87,10 @@ for url in sources:
             line = line.strip()
             if line.startswith(('vless://', 'vmess://', 'trojan://', 'ss://')):
                 base_config = line.split('#')[0] if '#' in line else line
+                
+                if base_config in seen_configs:
+                    continue
+                seen_configs.add(base_config)
                 
                 try:
                     host = extract_ip(base_config)
@@ -110,7 +113,7 @@ if new_configs:
     sub_title = "TargeterVPN"
     sub_desc = "впн от айса"
     
-    plain_header = f"#PROFILE-TITLE: {sub_title}\n#announcement: {sub_desc}\n"
+    plain_header = f"#PROFILE-TITLE: {sub_title}\n#announcement: {sub_desc}\n#profile-update-interval: 1\n"
     plain_text_data = plain_header + '\n'.join(new_configs)
     
     with open("working_configs.txt", "w", encoding="utf-8") as f:
@@ -119,7 +122,7 @@ if new_configs:
     title_b64 = base64.b64encode(sub_title.encode('utf-8')).decode('utf-8')
     desc_b64 = base64.b64encode(sub_desc.encode('utf-8')).decode('utf-8')
     
-    b64_internal_header = f"#profile-title: base64:{title_b64}\n#announcement: base64:{desc_b64}\n"
+    b64_internal_header = f"#profile-title: base64:{title_b64}\n#announcement: base64:{desc_b64}\n#profile-update-interval: 1\n"
     full_content_to_encode = b64_internal_header + '\n'.join(new_configs)
     
     base64_data = base64.b64encode(full_content_to_encode.encode('utf-8')).decode('utf-8')
@@ -127,6 +130,6 @@ if new_configs:
     with open("sub_base64.txt", "w", encoding="utf-8") as f:
         f.write(base64_data)
         
-    print(f"Успешно сохранено {len(new_configs)} серверов.")
+    print(f"Успешно сохранено {len(new_configs)} уникальных серверов.")
 else:
     print("Ошибка: не удалось собрать сервера.")
