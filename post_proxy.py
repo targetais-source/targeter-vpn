@@ -10,6 +10,7 @@ CHAT_ID = os.environ.get("TELEGRAM_CHAT_ID")
 
 URLS = [
     "https://raw.githubusercontent.com/kort0881/telegram-proxy-collector/main/proxy_all.txt",
+    "https://raw.githubusercontent.com/tgmtproxy/mtproxy/refs/heads/main/proxies.txt",
 ]
 
 def check_single_proxy(item):
