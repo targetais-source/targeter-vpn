@@ -1,9 +1,12 @@
-name: Update VPN Subscriptions
+name: Update VPN & Post Proxies
 
 on:
   schedule:
-    - cron: '0 */1 * * *'
+    - cron: '0 * * * *'
   workflow_dispatch:
+
+permissions:
+  contents: write
 
 jobs:
   build:
@@ -27,8 +30,14 @@ jobs:
         run: |
           curl -L -o Country.mmdb https://github.com/P3TERX/GeoLite.mmdb/raw/download/GeoLite2-Country.mmdb
 
-      - name: Run script
+      - name: Run VPN Update script
         run: python update-vpn.py
+
+      - name: Post fresh Telegram proxies
+        env:
+          TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+          TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
+        run: python post_proxy.py
 
       - name: Commit and push changes
         run: |
