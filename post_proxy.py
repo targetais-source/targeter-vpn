@@ -75,7 +75,7 @@ def parse_proxies():
 
     working_proxies.sort(key=lambda x: x["ping"])
     print(f"Успешно прошли проверку: {len(working_proxies)}")
-    return working_proxies[:3]
+    return working_proxies[:10]
 
 def send_telegram_post(proxies):
     if not BOT_TOKEN or not CHAT_ID:
