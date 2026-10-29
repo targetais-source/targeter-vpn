@@ -89,7 +89,7 @@ vless://5ae138db-e66a-46a9-bb53-686e72987a0f@31.58.178.62:443?encryption=none&fl
 vless://0192c3d3-18d5-4b95-8eb3-598e18de6918@2.56.207.68:443?flow=xtls-rprx-vision&encryption=none&security=tls&sni=www.slovarik.xyz&type=tcp&headerType=none&fp=qq#🇦🇲 [AM] TargeterVPN_85
 vless://5ae138db-e66a-46a9-bb53-686e72987a0f@31.59.65.84:443?encryption=none&flow=xtls-rprx-vision&type=tcp&security=reality&sni=us23.swcdn.xyz&pbk=9QPwsqYh2rl00C9awQP1iQ_v6ALcTXOrbr2o9WUqcjI&sid=e30e490effa984d8&fp=firefox&spx=/#🇺🇸 [US] TargeterVPN_86
 vless://727a9178-d7f0-4142-8205-b0d19959ded0@ru-1.ffpn.pro:443?encryption=none&type=xhttp&security=reality&sni=ru-1.ffpn.pro&pbk=DCpi9-1rSXxBnEIAQ9U3mTqHivk7vHJRV_T2pWw5vCc&sid=681fc2dd643bc2f3&fp=firefox&path=/&mode=auto#🇺🇸 [US] TargeterVPN_87
-vless://76ef5ab3-7075-4e23-b445-f3b1bd05d431@swe.qik-fin.uk:443?type=grpc&security=tls&fp=chrome&sni=swe.qik-fin.uk&serviceName=assets#🇦🇲 [AM] TargeterVPN_88
+vless://76ef5ab3-7075-4e23-b445-f3b1bd05d431@swe.qik-fin.uk:443?type=grpc&security=tls&fp=chrome&sni=swe.qik-fin.uk&serviceName=assets#🇷🇺 [RU] TargeterVPN_88
 vless://5ae138db-e66a-46a9-bb53-686e72987a0f@217.60.55.89:443?encryption=none&flow=xtls-rprx-vision&type=tcp&security=reality&sni=mk23.static-s3.org&pbk=VTzBz1F2oAn0PTYYDi419BThKMBAXDLVKwUJdR6oR1I&sid=9009eb2dad4eb392&fp=firefox&spx=/#🇲🇰 [MK] TargeterVPN_89
 vless://a0fa7e19-70ec-41e0-b0cc-bcc984d4201a@us.bsh-net.ru:443?encryption=none&flow=xtls-rprx-vision&type=tcp&security=reality&sni=us.bsh-net.ru&fp=firefox&pbk=LEb-1eNb7yzDYJ7rBs8k7VNWcfw6FnuTIIYeCBjHRkM&sid=da8e9fff883c5950#🇺🇸 [US] TargeterVPN_90
 trojan://humanity@172.64.231.133:443?path=%2Fassignment&security=tls&insecure=0&host=www.trusteeforward.com&type=ws&allowInsecure=0&sni=www.trusteeforward.com#🌐 [UN] TargeterVPN_91
