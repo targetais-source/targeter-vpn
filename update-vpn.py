@@ -6,7 +6,11 @@ import geoip2.database
 
 sources = [
     "https://sub.vlessfo.ru/vlessforu/working_configs.txt",
-    "https://hub.mos.ru/akelladejavu/bunker/-/raw/main/WHITE_LIST.txt"
+    "https://pozor.bond/sub/emergency-aeryxvpn",
+    "https://raw.githubusercontent.com/theakres/VPN/main/all",
+    "https://vpn.voidgram.xyz/burmalda",
+    "https://clck.ru/3WrVKy",
+    
 ]
 
 country_cache = {}
