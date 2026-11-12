@@ -10,6 +10,8 @@ sources = [
     "https://raw.githubusercontent.com/theakres/VPN/main/all",
     "https://vpn.voidgram.xyz/burmalda",
     "https://clck.ru/3WrVKy",
+    "https://pozor.bond/sub/vzal49dpeu1f",
+    "https://clck.ru/3UJ8oS",
     
 ]
 
