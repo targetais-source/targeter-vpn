@@ -12,7 +12,14 @@ sources = [
     "https://clck.ru/3WrVKy",
     "https://pozor.bond/sub/vzal49dpeu1f",
     "https://clck.ru/3UJ8oS",
-    
+    "https://clck.ru/3Wt8KN#K",
+    "https://github.com/theakres/VPN/raw/main/all",
+    "https://sub.my-vpn.click/subscriptions/yEdQ2-640D3oCdtTiPE2ow.txt",
+    "https://clck.ru/3WrVKy",
+    "https://pizdukmod.github.io/PizdukVPN.Web",
+    "https://pozor.bond/sub/qyvc3ce0gzrs",
+    "https://raw.githubusercontent.com/s0ulcoil/HavenVPN/refs/heads/main/Haven",
+    "https://raw.githubusercontent.com/gooseteam-hackers/freevpn-cracks/refs/heads/main/subscription_auto.txt",
 ]
 
 country_cache = {}
